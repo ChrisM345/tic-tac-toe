@@ -12,12 +12,11 @@ const Gameboard = (() => {
         })
         document.querySelector(".game-board").innerHTML = boardGameHTML;
     }
-    
-    
-
+ 
     return {
         render,
     }
 
 })();
 
+Gameboard.render()

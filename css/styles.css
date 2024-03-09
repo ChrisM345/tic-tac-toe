@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.game-board{
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+}
+
+.square{
+    border: black solid;
+    width: 100px;
+    height: 100px;
+}
