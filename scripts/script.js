@@ -26,7 +26,7 @@ const Gameboard = (() => {
     }
 
     const showBoard = () =>{
-        console.log(gameboard)
+        return gameboard
     }
 
 
@@ -53,6 +53,7 @@ const Game = (() => {
     const handleClick = (event) => {
         if(event.target.innerText == ''){
             Gameboard.updateSquare(event.target, players[currPlayerIndex].mark)
+            checkWin(Gameboard.showBoard())
             currPlayerIndex = currPlayerIndex == 0 ? 1 : 0
         }
     }
@@ -68,6 +69,31 @@ function createPlayer (name, mark) {
         name,
         mark
     }
+}
+
+function checkWin(board){
+    console.log(board)
+    const winningOptions = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+    ];
+
+    for (let i = 0; i < winningOptions.length; i++) {
+        const [a, b, c] = winningOptions[i];
+        if (board[a] != '' && board[a] == board[b] && board[b] == board[c]) {
+            console.log("win")
+        }
+    }
+    if (board.every(element => element == 'X' || element == 'O')){
+        console.log('tie')
+    }
+
 }
 
 Game.startGame()
