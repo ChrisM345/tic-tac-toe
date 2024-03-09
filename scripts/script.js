@@ -1,7 +1,3 @@
-// Storing gameboard as an array inside of a Gameboard Object
-// Players will also be stored in objects
-// Object to control the flow of the game
-
 const Gameboard = (() => {
     let gameboard = ['','','','','','','','',''];
 
@@ -32,7 +28,6 @@ const Gameboard = (() => {
     const resetBoard = () => {
         gameboard = ['','','','','','','','',''];
     }
-
 
     return {
         render,
@@ -65,11 +60,9 @@ const Game = (() => {
                 // Check for win and tie conditions
                 checkgameEnd = checkWin(Gameboard.showBoard());
                 if (checkgameEnd == 'tie'){
-                    console.log("Tie")
                     gameOver = true
                     document.querySelector('.game-end-message').innerText = ("It's a tie!")
                 } else if (checkgameEnd){
-                    console.log('Yes')
                     gameOver = true
                     document.querySelector('.game-end-message').innerText = (`${players[currPlayerIndex].name} won the game!`)
                 }
@@ -81,7 +74,6 @@ const Game = (() => {
     }
 
     const restart = () => {
-        console.log("restarting!")
     
         const squares = document.querySelectorAll('.square');
         squares.forEach((square) => {
@@ -108,7 +100,6 @@ function createPlayer (name, mark) {
 }
 
 function checkWin(board){
-    console.log(board)
     const winningOptions = [
         [0, 1, 2],
         [3, 4, 5],
@@ -131,6 +122,7 @@ function checkWin(board){
     }
 }
 
-Game.startGame()
+
 
 document.querySelector(".restart-game").addEventListener('click', Game.restart);
+document.querySelector(".start-game").addEventListener('click', Game.startGame)
