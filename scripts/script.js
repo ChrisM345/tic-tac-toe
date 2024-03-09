@@ -40,21 +40,38 @@ const Gameboard = (() => {
 const Game = (() => {
     let players = [];
     let currPlayerIndex;
+    let gameOver = false
     const startGame = () => {
         players = [
             createPlayer(document.querySelector("#player-1").value, 'X'),
             createPlayer(document.querySelector("#player-2").value, 'O')
         ]
-
         Gameboard.render()
         currPlayerIndex = 0
     }
 
     const handleClick = (event) => {
-        if(event.target.innerText == ''){
-            Gameboard.updateSquare(event.target, players[currPlayerIndex].mark)
-            checkWin(Gameboard.showBoard())
-            currPlayerIndex = currPlayerIndex == 0 ? 1 : 0
+        if (!gameOver){
+            // If the square is empty the player move is valid.
+            if(event.target.innerText == ''){
+                // Update gameboard
+                Gameboard.updateSquare(event.target, players[currPlayerIndex].mark)
+
+                // Check for win and tie conditions
+                checkgameEnd = checkWin(Gameboard.showBoard());
+                if (checkgameEnd == 'tie'){
+                    console.log("Tie")
+                    gameOver = true
+                    document.querySelector('.game-end-message').innerText = ("It's a tie!")
+                } else if (checkgameEnd){
+                    console.log('Yes')
+                    gameOver = true
+                    document.querySelector('.game-end-message').innerText = (`${players[currPlayerIndex].name} won the game!`)
+                }
+
+                // Switch players
+                currPlayerIndex = currPlayerIndex == 0 ? 1 : 0
+            }
         }
     }
 
@@ -87,13 +104,12 @@ function checkWin(board){
     for (let i = 0; i < winningOptions.length; i++) {
         const [a, b, c] = winningOptions[i];
         if (board[a] != '' && board[a] == board[b] && board[b] == board[c]) {
-            console.log("win")
+            return true
         }
     }
     if (board.every(element => element == 'X' || element == 'O')){
-        console.log('tie')
+        return 'tie'
     }
-
 }
 
 Game.startGame()

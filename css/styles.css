@@ -23,3 +23,7 @@
 .controls{
     padding-top: 20px;
 }
+
+.game-end-message{
+    text-align: center;
+}
