@@ -25,8 +25,12 @@ const Gameboard = (() => {
         gameboard[idx] = mark
     }
 
-    const showBoard = () =>{
+    const showBoard = () => {
         return gameboard
+    }
+
+    const resetBoard = () => {
+        gameboard = ['','','','','','','','',''];
     }
 
 
@@ -34,6 +38,7 @@ const Gameboard = (() => {
         render,
         updateSquare,
         showBoard,
+        resetBoard,
     }
 })();
 
@@ -75,9 +80,23 @@ const Game = (() => {
         }
     }
 
+    const restart = () => {
+        console.log("restarting!")
+    
+        const squares = document.querySelectorAll('.square');
+        squares.forEach((square) => {
+            square.innerHTML = ''
+        })
+        document.querySelector('.game-end-message').innerText = ''
+        gameOver = false
+        currPlayerIndex = 0
+        Gameboard.resetBoard()
+    }
+
     return {
         startGame,
         handleClick,
+        restart,
     }
 })();
 
@@ -113,3 +132,5 @@ function checkWin(board){
 }
 
 Game.startGame()
+
+document.querySelector(".restart-game").addEventListener('click', Game.restart);
